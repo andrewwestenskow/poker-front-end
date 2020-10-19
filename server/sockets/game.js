@@ -26,6 +26,12 @@ class Player {
   constructor(id, name) {
     this.id = id
     this.name = name
+  }
+}
+
+class Self extends Player {
+  constructor(id, name) {
+    super(id, name)
     this.hand = []
   }
 
@@ -51,16 +57,18 @@ class Player {
 class Game {
   constructor(room, initialPlayer) {
     const deck = new Deck()
-
     deck.shuffle()
     this.room = room
     this.deck = deck
-    this.players = [new Player(initialPlayer.id, initialPlayer.name)]
+    const player = new Player(initialPlayer.id, initialPlayer.name)
+    this.public = {
+      players: [player],
+    }
   }
 
   addPlayer(id, name) {
-    this.players.push(new Player(id, name))
+    this.public.players.push(new Player(id, name))
   }
 }
 
-module.exports = Game
+module.exports = { Game, Self }
