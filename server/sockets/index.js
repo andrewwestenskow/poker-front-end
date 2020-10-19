@@ -16,7 +16,7 @@ const io = socket(server)
 io.on('connection', (socket) => {
   console.log('Connection')
 
-  socket.on('join', (room, name) => {
+  socket.on('join', ({ room, name }) => {
     if (games[room]) {
       games[room].addPlayer(socket.id, name)
     } else {
@@ -24,5 +24,6 @@ io.on('connection', (socket) => {
     }
     console.log(`Joined room ${room}`)
     socket.join(room)
+    io.in(room).emit('game state', games[room])
   })
 })

@@ -50,8 +50,11 @@ class Player {
 
 class Game {
   constructor(room, initialPlayer) {
+    const deck = new Deck()
+
+    deck.shuffle()
     this.room = room
-    this.deck = new Deck()
+    this.deck = deck
     this.players = [new Player(initialPlayer.id, initialPlayer.name)]
   }
 
